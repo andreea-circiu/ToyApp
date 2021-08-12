@@ -1,0 +1,87 @@
+CREATE DATABASE toyapp
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'English_United States.1252'
+    LC_CTYPE = 'English_United States.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+CREATE TABLE IF NOT EXISTS dealer(
+dealer_code VARCHAR(5) PRIMARY KEY,
+password VARCHAR(25),
+);
+
+CREATE TABLE IF NOT EXISTS vehicle
+(
+    whc VARCHAR(3),
+    fin VARCHAR(14),
+    PRIMARY KEY (whc, fin),
+    category VARCHAR(1),
+    model_year INT,
+    mileage INT,
+    mileage_indicator VARCHAR(5),
+	dealer_code VARCHAR(5),
+    FOREIGN KEY (dealer_code) REFERENCES dealer(dealer_code),
+    next_service_date Date,
+    first_registration_date Date,
+    services_number INT,
+    country_code VARCHAR(4)
+)
+
+
+CREATE TABLE IF NOT EXISTS service
+(
+	id INT PRIMARY KEY,
+    whc VARCHAR(3),
+    fin VARCHAR(14),
+    FOREIGN KEY (whc, fin) REFERENCES vehicle(whc, fin),
+    service_date Date,
+    mileage INT,
+    mileage_indicator VARCHAR(5),
+	regular_service BOOLEAN,
+    remaining_mileage INT,
+    remaining_days INT,
+    dealer_code VARCHAR(5),
+    FOREIGN KEY (dealer_code) REFERENCES dealer(dealer_code)
+)
+
+CREATE TABLE IF NOT EXISTS damage_codes
+(
+	code INT PRIMARY KEY,
+	description VARCHAR(250)
+)
+
+CREATE TABLE IF NOT EXISTS serivice_damage_codes
+(
+	distribution_id INT PRIMARY KEY,
+	id INT,
+	code INT,
+	FOREIGN KEY (id) REFERENCES service(id),
+	FOREIGN KEY (code) REFERENCES damage_codes(code)
+)
+
+
+INSERT INTO dealer VALUES('ab001','12345');
+INSERT INTO dealer VALUES('ab002','12345');
+INSERT INTO dealer VALUES('ab003','12345');
+
+INSERT INTO vehicle VALUES('a01','a0001', 'b', 2009, 179000, '01', 'ab001', '2011-11-11', '2009-11-11', 1, '1111');
+INSERT INTO vehicle VALUES('a02','a0002', 'b', 2008, 379000, '01', 'ab001', '2010-11-11', '2008-11-11', 2, '1131');
+INSERT INTO vehicle VALUES('a03','a0003', 'b', 2007, 279000, '01', 'ab002', '2010-11-11', '2007-11-11', 3, '1411');
+
+INSERT INTO service VALUES(1, 'a01','a0001', '2013-05-11', 127009, '01', true, 20000, 100, 'ab003');
+INSERT INTO service VALUES(2, 'a01','a0001', '2015-05-11', 127549, '01', false, 30000, 10, 'ab003');
+INSERT INTO service VALUES(3, 'a02','a0002', '2014-05-11', 129909, '01', true, 40000, 90, 'ab001');
+
+INSERT INTO damage_codes VALUES(10,'Motor');
+INSERT INTO damage_codes VALUES(20,'Parbriz');
+INSERT INTO damage_codes VALUES(30,'Radiator');
+INSERT INTO damage_codes VALUES(40,'Far');
+INSERT INTO damage_codes VALUES(50,'Portiera');
+
+INSERT INTO serivice_damage_codes VALUES(1, 1, 10);
+INSERT INTO serivice_damage_codes VALUES(2, 1, 20);
+INSERT INTO serivice_damage_codes VALUES(3, 3, 30);
+
+
