@@ -17,10 +17,5 @@ import lombok.Setter;
 public class Dealer {
 	@Id
     private String dealer_code;
-
-    @Column
     private String password;
-    
-    
-
 }

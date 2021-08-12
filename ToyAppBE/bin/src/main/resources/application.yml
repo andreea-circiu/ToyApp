@@ -1,6 +1,6 @@
 spring:
   datasource:
-    password: password
+    password: Fortech1.ro
     url: jdbc:postgresql://localhost:5432/toyapp
     username: postgres
   jpa:
