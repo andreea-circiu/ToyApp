@@ -9,7 +9,7 @@ CREATE DATABASE toyapp
 
 CREATE TABLE IF NOT EXISTS dealer(
 dealer_code VARCHAR(5) PRIMARY KEY,
-password VARCHAR(25),
+password VARCHAR(25)
 );
 
 CREATE TABLE IF NOT EXISTS vehicle
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS vehicle
     first_registration_date Date,
     services_number INT,
     country_code VARCHAR(4)
-)
+);
 
 
 CREATE TABLE IF NOT EXISTS service
@@ -44,13 +44,13 @@ CREATE TABLE IF NOT EXISTS service
     remaining_days INT,
     dealer_code VARCHAR(5),
     FOREIGN KEY (dealer_code) REFERENCES dealer(dealer_code)
-)
+);
 
 CREATE TABLE IF NOT EXISTS damage_codes
 (
 	code INT PRIMARY KEY,
 	description VARCHAR(250)
-)
+);
 
 CREATE TABLE IF NOT EXISTS serivice_damage_codes
 (
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS serivice_damage_codes
 	code INT,
 	FOREIGN KEY (id) REFERENCES service(id),
 	FOREIGN KEY (code) REFERENCES damage_codes(code)
-)
+);
 
 
 INSERT INTO dealer VALUES('ab001','12345');
@@ -83,5 +83,3 @@ INSERT INTO damage_codes VALUES(50,'Portiera');
 INSERT INTO serivice_damage_codes VALUES(1, 1, 10);
 INSERT INTO serivice_damage_codes VALUES(2, 1, 20);
 INSERT INTO serivice_damage_codes VALUES(3, 3, 30);
-
-
