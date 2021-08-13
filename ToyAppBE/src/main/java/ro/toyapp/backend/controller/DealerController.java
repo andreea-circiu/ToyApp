@@ -39,7 +39,7 @@ public class DealerController {
         return dealerService.getAll();
     }
 	
-	@PostMapping("login")
+	@GetMapping("login")
     ResponseEntity<String> checkIfUserExists(String dealerCode, String password) {
 		try{
 			dealerService.checkCredentials(dealerCode, password);
