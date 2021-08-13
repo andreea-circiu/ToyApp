@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import ro.toyapp.frontend.model.DealerDTO;
 
-@Service
+@Component
 public class ApiCallsUtil {
 	
 	
