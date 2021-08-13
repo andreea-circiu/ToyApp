@@ -30,7 +30,7 @@ public class DealerService {
 		if (dealerExist) {
 			return dealerCode;
 		} else {
-			return null;
+			throw new IllegalStateException("Dealer does not exist.");
 		}
 	}
 }

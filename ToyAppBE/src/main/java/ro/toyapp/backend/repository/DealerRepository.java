@@ -12,8 +12,7 @@ import ro.toyapp.backend.domain.Dealer;
 public interface DealerRepository extends JpaRepository<Dealer, String>{
 
 	
-	@Query(
-			value = "SELECT EXIST(SELECT 1 FROM dealer where dealer_code = ?1 AND password = ?2)", 
+	@Query(value = "SELECT EXISTS(SELECT 1 FROM dealer where dealer_code = ?1 AND password = ?2)", 
 			nativeQuery = true)
     boolean checkIfDealerExist(String dealerCode, String password);
 }
