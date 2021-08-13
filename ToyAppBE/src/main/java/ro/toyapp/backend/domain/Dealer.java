@@ -16,6 +16,8 @@ import lombok.Setter;
 @Table(name= "dealer")
 public class Dealer {
 	@Id
-    private String dealer_code;
+	@Column(name="dealer_code")
+    private String dealerCode;
+	
     private String password;
 }

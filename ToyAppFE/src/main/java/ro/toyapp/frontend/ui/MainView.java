@@ -12,10 +12,16 @@ import ro.toyapp.frontend.util.ApiCallsUtil;
 @Route("")
 public class MainView extends VerticalLayout{
 	
-	private ApiCallsUtil apiCallsUtil = new ApiCallsUtil();
 	
+	private ApiCallsUtil apiCallsUtil;
 	
-	public MainView() {
+	@Autowired
+	public MainView(ApiCallsUtil apiCallsUtil) {
+		this.apiCallsUtil= apiCallsUtil;
+		createGrid();
+	}
+	
+	private void createGrid() {
 		Grid<DealerDTO> grid = new Grid<>(DealerDTO.class);
 		grid.setItems(apiCallsUtil.getDealers());
 		add(grid);
