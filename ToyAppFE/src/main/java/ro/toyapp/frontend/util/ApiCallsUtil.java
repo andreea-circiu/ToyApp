@@ -24,9 +24,13 @@ public class ApiCallsUtil extends UI {
 
 	private static final String API="http://localhost:8080/api/";
 	
-	@Autowired
+	
 	private RestTemplate restTemplate;
-
+	
+	@Autowired
+	public ApiCallsUtil(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 		
 	public List<DealerDTO> getDealers() {
 		DealerDTO dealers[] = restTemplate.getForObject(API+ "dealers", DealerDTO[].class);
@@ -49,8 +53,5 @@ public class ApiCallsUtil extends UI {
 		return response;
 	}
 	
-	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
-	}
+	
 }
