@@ -13,21 +13,21 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinService;
 
 import ro.toyapp.frontend.util.ApiCallsUtil;
 
 @Route("login")
 @PageTitle("Login")
 public class Login extends VerticalLayout{
-private ApiCallsUtil apiCallsUtil;
+	
+	private ApiCallsUtil apiCallsUtil;
 	
 	@Autowired
 	public Login(ApiCallsUtil apiCallsUtil) {
 		this.apiCallsUtil= apiCallsUtil;
 		addForm();
 	}
-	
-	
 	
 	public void addForm() {
 		 TextField userNameTextField = new TextField();
@@ -36,12 +36,19 @@ private ApiCallsUtil apiCallsUtil;
 	     passwordField.getElement().setAttribute("name", "password"); // 
 	     Button submitButton = new Button("Login");
 	     submitButton.setId("submitbutton");
+	     
 	     submitButton.addClickListener(click-> {
-	    	 apiCallsUtil.login(userNameTextField.getValue(), passwordField.getValue());
+	    	 String response = apiCallsUtil.login(userNameTextField.getValue(), passwordField.getValue());
+	    	 if(response == "ok") {
+	    		 System.out.println(response);
+	    	 } else {
+	    		 System.out.println(response);
+	    	 }
+	    	 
 	     });
 	     FormLayout formLayout = new FormLayout(); // 
 	     formLayout.add(userNameTextField, passwordField, submitButton);
-
+	     add(formLayout);
 	}
 }
 
